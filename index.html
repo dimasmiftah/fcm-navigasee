@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Navigasee</title>
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"></script>
+<script>
+  var firebaseConfig = {
+    apiKey: "AIzaSyDSFQa_j7icwm8XUITwCQUWjTPVRF5ffR0",
+    authDomain: "navigasee-toyota.firebaseapp.com",
+    databaseURL: "https://navigasee-toyota.firebaseio.com",
+    projectId: "navigasee-toyota",
+    storageBucket: "navigasee-toyota.appspot.com",
+    messagingSenderId: "128687501384",
+    appId: "1:128687501384:web:e54177a5e9e079e5d3287d"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const messaging = firebase.messaging()
+  messaging.usePublicVapidKey("BO-sSjlLaCw1u5tV_0qvF3mCPW8r0RICMJlMl_Jnpi2jkspH3O1prvFtz1Y1nRhgiGoNfDV06yiYtrvwWAZK7ig");
+  messaging.requestPermission()
+  .then(function () {
+    console.log('have permission');
+    return messaging.getToken()
+  })
+  .then(function (token) {
+    console.log(token);
+  })
+  .catch(function () {
+    console.log('error hmm');
+  })
+
+  const audio = new Audio('car-alarm.mp3');
+  messaging.onMessage(function(payload){
+    console.log('onMessage: ',payload)
+    audio.play();
+  })
+</script>
+</body>
+</html>
