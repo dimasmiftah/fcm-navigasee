@@ -7,7 +7,11 @@
   <title>Navigasee</title>
 </head>
 <body>
-
+  <audio controls class="alarm" muted>
+    <source src="car-alarm.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>
+  <button class="hei">mute</button>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-messaging.js"></script>
 <script>
@@ -36,11 +40,41 @@
     console.log('error hmm');
   })
 
-  const audio = new Audio('car-alarm.mp3');
+
+  let alarm = document.querySelector('.alarm');
+  // document.querySelector(".hei").onclick = function (){
+  //   if( alarm.muted ) {
+  //         alarm.muted = false;
+  //   } else {
+  //     alarm.muted = true;
+  //   }
+  // };
+  var isPlaying = false;
+
+  function play() {
+    alarm.muted = false;
+
+    if (isPlaying) {
+      alarm.pause()
+      alarm.currentTime = 0;
+    } else {
+      alarm.play();
+    }
+  }
+
+  alarm.onplaying = function() {
+    isPlaying = true;
+  };
+  alarm.onpause = function() {
+    isPlaying = false;
+  };
+  
   messaging.onMessage(function(payload){
     console.log('onMessage: ',payload)
-    audio.play();
+    play()
   })
+
+  
 </script>
 </body>
 </html>

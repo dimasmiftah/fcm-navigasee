@@ -13,10 +13,14 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging()
-messaging.setBackgroundMessageHandler(function (payload) {
-  const title = 'Hello World'
-  const option = {
-    body: payload.data.status
-  }
-  return self.registration.showNotification(title,option)
-})
+
+// messaging.setBackgroundMessageHandler(function (payload) {
+//   const audio = new Audio('car-alarm.mp3');
+//   audio.play();
+  // const title = 'Hello World'
+  // const option = {
+  //   body: payload.data.status
+  // }
+  // return self.registration.showNotification(title,option)
+  
+// })
